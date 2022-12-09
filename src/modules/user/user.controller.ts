@@ -1,9 +1,10 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/enum/role.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
+import { FindAllUsersDTO } from './dto/find-all-users.dto';
 import { UserService } from './user.service';
 
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -18,8 +19,8 @@ export class UserController {
     }
 
     @Roles(Role.Admin)
-    @Get()
-    async findAll() {
-        return this.userService.findAll()
+    @Get('list')
+    async findAll(@Query() filters?) {
+        return this.userService.findAll(filters)
     }
 }
