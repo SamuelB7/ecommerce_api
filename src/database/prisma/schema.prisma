@@ -20,6 +20,7 @@ model User {
   state             String?
   city              String?
   street            String?
+  zipCode           String?
   addressComplement String?   @map("address_complement")
   createdAt         DateTime? @default(now()) @map("created_at")
   updatedAt         DateTime? @map("updated_at")

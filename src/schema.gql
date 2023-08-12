@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthUser {
+  id: String!
+  name: String!
+  email: String!
+  role: String!
+}
+
+type Query {
+  me: AuthUser!
+}
+
+type Mutation {
+  signUp(signUpInput: UserRegisterDto!): AuthUser!
+  signIn(signInInput: LoginDto!): AuthUser!
+}
+
+input UserRegisterDto {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input LoginDto {
+  email: String!
+  password: String!
+}
