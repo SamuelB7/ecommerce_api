@@ -9,13 +9,17 @@ type AuthUser {
   role: String!
 }
 
+type AuthAccess {
+  accessToken: String!
+}
+
 type Query {
   me: AuthUser!
 }
 
 type Mutation {
-  signUp(signUpInput: UserRegisterDto!): AuthUser!
-  signIn(signInInput: LoginDto!): AuthUser!
+  signUp(signUpInput: UserRegisterDto!): AuthAccess!
+  signIn(signInInput: LoginDto!): AuthAccess!
 }
 
 input UserRegisterDto {

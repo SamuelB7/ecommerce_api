@@ -6,6 +6,7 @@ import { compare, hash } from 'bcrypt';
 import { UserRoleEnum } from 'src/enums/user-role.enum';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { LoginDto } from './dto/login.dto';
+import { AuthAccess } from 'src/entities/auth-access.entity';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
         private jwt: JwtService,
     ) { }
 
-    async signUp(data: UserRegisterDto) {
+    async signUp(data: UserRegisterDto): Promise<AuthAccess> {
         try {
             let passwordHash = await hash(data.password, 10);
 
@@ -50,7 +51,7 @@ export class AuthService {
         }
     }
 
-    async signIn(data: LoginDto) {
+    async signIn(data: LoginDto): Promise<AuthAccess> {
         let user = await this.prisma.user.findUnique({
             where: {
                 email: data.email,
