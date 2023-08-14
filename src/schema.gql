@@ -13,22 +13,68 @@ type AuthAccess {
   accessToken: String!
 }
 
+type User {
+  id: String!
+  name: String!
+  email: String!
+  password: String!
+  role: String!
+  country: String!
+  state: String!
+  city: String!
+  street: String!
+  zipCode: String!
+  addressComplement: String!
+}
+
 type Query {
   me: AuthUser!
+  findAllUsers: [User!]!
+  findOneUser(id: String!): User!
 }
 
 type Mutation {
-  signUp(signUpInput: UserRegisterDto!): AuthAccess!
-  signIn(signInInput: LoginDto!): AuthAccess!
+  signUp(signUpInput: UserRegisterInput!): AuthAccess!
+  signIn(signInInput: LoginInput!): AuthAccess!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
 }
 
-input UserRegisterDto {
+input UserRegisterInput {
   name: String!
   email: String!
   password: String!
 }
 
-input LoginDto {
+input LoginInput {
   email: String!
   password: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  role: String!
+  country: String!
+  state: String!
+  city: String!
+  street: String!
+  zipCode: String!
+  addressComplement: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+  role: String
+  country: String
+  state: String
+  city: String
+  street: String
+  zipCode: String
+  addressComplement: String
+  id: String!
 }

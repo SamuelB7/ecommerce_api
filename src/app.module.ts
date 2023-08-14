@@ -7,6 +7,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { join } from 'path';
 import { AuthModule } from './modules/auth/auth.module';
+import { PrismaModule } from './database/prisma/prisma.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -16,7 +18,9 @@ import { AuthModule } from './modules/auth/auth.module';
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql')
     }),
-    AuthModule
+    AuthModule,
+    PrismaModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

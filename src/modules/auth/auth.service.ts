@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/database/prisma/prisma.service';
-import { UserRegisterDto } from './dto/register-user.dto';
 import { compare, hash } from 'bcrypt';
 import { UserRoleEnum } from 'src/enums/user-role.enum';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { LoginDto } from './dto/login.dto';
 import { AuthAccess } from 'src/entities/auth-access.entity';
+import { UserRegisterInput } from './dto/register-user.input';
+import { LoginInput } from './dto/login.input';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
         private jwt: JwtService,
     ) { }
 
-    async signUp(data: UserRegisterDto): Promise<AuthAccess> {
+    async signUp(data: UserRegisterInput): Promise<AuthAccess> {
         try {
             let passwordHash = await hash(data.password, 10);
 
@@ -51,7 +51,7 @@ export class AuthService {
         }
     }
 
-    async signIn(data: LoginDto): Promise<AuthAccess> {
+    async signIn(data: LoginInput): Promise<AuthAccess> {
         let user = await this.prisma.user.findUnique({
             where: {
                 email: data.email,

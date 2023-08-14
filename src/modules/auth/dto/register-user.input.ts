@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, MaxLength } from "class-validator";
 
 
 @InputType()
-export class UserRegisterDto {
+export class UserRegisterInput {
     @MaxLength(255)
     @IsNotEmpty()
     @Field()
