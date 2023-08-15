@@ -8,6 +8,8 @@ import { Role } from 'src/decorators/roles-decorator';
 import { UserRoleEnum } from 'src/enums/user-role.enum';
 import { RolesGuard } from 'src/guards/roles/roles.guard';
 import { User } from 'src/entities/user.entity';
+import { SearchUserParametersInput } from './dto/search-user-parameters.input';
+import { PaginationArgs } from 'src/utils/graphql/pagination-args';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Role(UserRoleEnum.ADMIN)
@@ -21,8 +23,8 @@ export class UsersResolver {
   }
 
   @Query(() => [User], { name: 'findAllUsers' })
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Args('search', { nullable: true }) search?: SearchUserParametersInput, @Args({ nullable: true }) pagination?: PaginationArgs) {
+    return this.usersService.findAll(search, pagination);
   }
 
   @Query(() => User, { name: 'findOneUser' })

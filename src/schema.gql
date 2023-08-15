@@ -19,12 +19,12 @@ type User {
   email: String!
   password: String!
   role: UserRole!
-  country: String!
-  state: String!
-  city: String!
-  street: String!
-  zipCode: String!
-  addressComplement: String!
+  country: String
+  state: String
+  city: String
+  street: String
+  zipCode: String
+  addressComplement: String
 }
 
 enum UserRole {
@@ -32,10 +32,45 @@ enum UserRole {
   USER
 }
 
+type Product {
+  id: String!
+  name: String!
+  description: String!
+  price: Float!
+  isAvailable: Boolean!
+  category: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   me: AuthUser!
-  findAllUsers: [User!]!
+  findAllUsers(search: SearchUserParametersInput, limit: Int = 20, offset: Int = 0): [User!]!
   findOneUser(id: String!): User!
+  findAllProducts(search: SearchProductParametersInput, limit: Int = 20, offset: Int = 0): [Product!]!
+  findOneProduct(id: String!): Product!
+}
+
+input SearchUserParametersInput {
+  name: String!
+  email: String!
+  role: UserRole!
+  country: String
+  state: String
+  city: String
+}
+
+input SearchProductParametersInput {
+  name: String
+  price: Float
+  isAvailable: Boolean
+  category: String
 }
 
 type Mutation {
@@ -44,6 +79,9 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+  removeProduct(id: String!): Product!
 }
 
 input UserRegisterInput {
@@ -82,4 +120,21 @@ input UpdateUserInput {
   zipCode: String
   addressComplement: String
   id: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  category: String!
+  isAvailable: Boolean!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+  category: String
+  isAvailable: Boolean
+  id: Int!
 }

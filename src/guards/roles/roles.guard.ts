@@ -11,7 +11,6 @@ export class RolesGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const ctx = GqlExecutionContext.create(context);
-    console.log("ROLE GUARD CONTEXT: ", ctx)
     const role = this.reflector.getAllAndOverride<string>('role', [
       context.getHandler(),
       context.getClass(),

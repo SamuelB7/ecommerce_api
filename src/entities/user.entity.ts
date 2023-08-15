@@ -18,21 +18,21 @@ export class User {
     @Field(() => UserRoleEnum)
     role: UserRoleEnum | string;
 
-    @Field()
+    @Field({ nullable: true })
     country?: string;
 
-    @Field()
+    @Field({ nullable: true })
     state?: string;
 
-    @Field()
+    @Field({ nullable: true })
     city?: string;
 
-    @Field()
+    @Field({ nullable: true })
     street?: string;
 
-    @Field()
+    @Field({ nullable: true })
     zipCode?: string;
 
-    @Field()
+    @Field({ nullable: true })
     addressComplement?: string;
 }
