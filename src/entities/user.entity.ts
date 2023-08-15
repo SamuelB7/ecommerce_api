@@ -15,8 +15,8 @@ export class User {
     @Field()
     password: string;
 
-    @Field()
-    role: UserRoleEnum;
+    @Field(() => UserRoleEnum)
+    role: UserRoleEnum | string;
 
     @Field()
     country?: string;

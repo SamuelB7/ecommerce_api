@@ -18,13 +18,18 @@ type User {
   name: String!
   email: String!
   password: String!
-  role: String!
+  role: UserRole!
   country: String!
   state: String!
   city: String!
   street: String!
   zipCode: String!
   addressComplement: String!
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
 
 type Query {

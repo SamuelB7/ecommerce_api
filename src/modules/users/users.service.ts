@@ -3,6 +3,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { PrismaService } from 'src/database/prisma/prisma.service';
 import { User } from 'src/entities/user.entity';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -10,49 +11,80 @@ export class UsersService {
     private prisma: PrismaService,
   ) { }
 
-  async create(createUserInput: CreateUserInput) {
-    const user = await this.prisma.user.create({
-      data: {
-        ...createUserInput
-      }
-    })
+  async create(createUserInput: CreateUserInput): Promise<User> {
+    try {
+      const passwordHash = await hash(createUserInput.password, 10);
 
-    return user
+      const user = await this.prisma.user.create({
+        data: {
+          ...createUserInput,
+          password: passwordHash
+        }
+      })
+
+      return user
+    } catch (error) {
+      console.error(error)
+      throw new Error(error.message)
+    }
   }
 
-  async findAll() {
-    const users = await this.prisma.user.findMany()
-    return users
+  async findAll(): Promise<User[]> {
+    try {
+      const users = await this.prisma.user.findMany()
+      return users
+    } catch (error) {
+      console.error(error)
+      throw new Error(error.message)
+    }
   }
 
-  async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        id: id
-      }
-    })
+  async findOne(id: string): Promise<User> {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          id: id
+        }
+      })
 
-    return user
+      return user
+    } catch (error) {
+      console.error(error)
+      throw new Error(error.message)
+    }
   }
 
-  async update(id: string, updateUserInput: UpdateUserInput) {
-    const user = await this.prisma.user.update({
-      where: {
-        id: id
-      },
-      data: {
-        ...updateUserInput
-      }
-    })
+  async update(id: string, updateUserInput: UpdateUserInput): Promise<User> {
+    try {
+      const passwordHash = await hash(updateUserInput.password, 10);
 
-    return user
+      const user = await this.prisma.user.update({
+        where: {
+          id: id
+        },
+        data: {
+          ...updateUserInput,
+          password: passwordHash
+        }
+      })
+
+      return user
+    } catch (error) {
+      console.error(error)
+      throw new Error(error.message)
+    }
   }
 
   async remove(id: string) {
-    return await this.prisma.user.delete({
-      where: {
-        id: id
-      }
-    })
+    try {
+      return await this.prisma.user.delete({
+        where: {
+          id: id
+        }
+      })
+    } catch (error) {
+      console.error(error)
+      throw new Error(error.message)
+    }
   }
 }
