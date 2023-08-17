@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  ecommerce-db:
+    container_name: ecommerce-db
+    image: postgres:15
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - base_network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  ecommerce-api:
+    container_name: ecommerce-api
+    image: node:lts
+    networks:
+      - base_network
+    ports:
+      - 3000:3000
+    command: sh -c "yarn start:dev"
+    depends_on:
+      - ecommerce-db
+    working_dir: /app
+    volumes:
+      - .:/app
+    env_file: .env
+
+networks:
+  base_network:
+
+
+volumes:
+  db-data:
