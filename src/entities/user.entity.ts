@@ -35,4 +35,13 @@ export class User {
 
     @Field({ nullable: true })
     addressComplement?: string;
+
+    @Field(() => Date)
+    createdAt: Date
+
+    @Field(() => Date, { nullable: true })
+    updatedAt?: Date
+
+    @Field(() => Date, { nullable: true })
+    deletedAt?: Date
 }

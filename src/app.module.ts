@@ -10,6 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './database/prisma/prisma.module';
 import { UsersModule } from './modules/users/users.module';
 import { ProductsModule } from './modules/products/products.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { ProductsModule } from './modules/products/products.module';
     AuthModule,
     PrismaModule,
     UsersModule,
-    ProductsModule
+    ProductsModule,
+    OrdersModule
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
