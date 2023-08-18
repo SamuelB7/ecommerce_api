@@ -25,12 +25,20 @@ type User {
   street: String
   zipCode: String
   addressComplement: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 enum UserRole {
   ADMIN
   USER
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Product {
   id: String!
@@ -44,10 +52,13 @@ type Product {
   deletedAt: DateTime
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+type Order {
+  id: String!
+  userId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
 
 type Query {
   me: AuthUser!
@@ -55,6 +66,8 @@ type Query {
   findOneUser(id: String!): User!
   findAllProducts(search: SearchProductParametersInput, limit: Int = 20, offset: Int = 0): [Product!]!
   findOneProduct(id: String!): Product!
+  orders: [Order!]!
+  order(id: Int!): Order!
 }
 
 input SearchUserParametersInput {
@@ -82,6 +95,9 @@ type Mutation {
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
   removeProduct(id: String!): Product!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  updateOrder(updateOrderInput: UpdateOrderInput!): Order!
+  removeOrder(id: Int!): Order!
 }
 
 input UserRegisterInput {
@@ -136,5 +152,16 @@ input UpdateProductInput {
   price: Float
   category: String
   isAvailable: Boolean
+  id: Int!
+}
+
+input CreateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateOrderInput {
+  """Example field (placeholder)"""
+  exampleField: Int
   id: Int!
 }
