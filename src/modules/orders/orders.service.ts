@@ -12,9 +12,19 @@ export class OrdersService {
   async create(createOrderInput: CreateOrderInput) {
     const order = await this.prisma.order.create({
       data: {
-        ...createOrderInput
+        userId: createOrderInput.userId,
       }
     })
+
+    for (let i = 0; i < createOrderInput.orderProducts.length; i++) {
+      await this.prisma.orderProducts.create({
+        data: {
+          orderId: order.id,
+          productId: createOrderInput.orderProducts[i].productId,
+          quantity: createOrderInput.orderProducts[i].quantity
+        }
+      })
+    }
 
     return order
   }
@@ -26,7 +36,11 @@ export class OrdersService {
 
   async findOne(id: string) {
     const order = await this.prisma.order.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        orderProducts: true,
+        user: true
+      }
     })
 
     return order
@@ -36,7 +50,7 @@ export class OrdersService {
     const order = await this.prisma.order.update({
       where: { id },
       data: {
-        ...updateOrderInput
+        userId: updateOrderInput.userId,
       }
     })
   }

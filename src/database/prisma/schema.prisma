@@ -61,7 +61,7 @@ model ProductPhotos {
 model Order {
   id            String          @id @default(uuid())
   userId        String          @map("user_id")
-  user          User?           @relation(fields: [userId], references: [id])
+  user          User            @relation(fields: [userId], references: [id])
   orderProducts OrderProducts[]
   createdAt     DateTime?       @default(now()) @map("created_at")
   updatedAt     DateTime?       @map("updated_at")
@@ -73,9 +73,9 @@ model Order {
 model OrderProducts {
   id        String    @id @default(uuid())
   orderId   String    @map("order_id")
-  order     Order?    @relation(fields: [orderId], references: [id])
+  order     Order     @relation(fields: [orderId], references: [id])
   productId String    @map("product_id")
-  product   Product?  @relation(fields: [productId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
   quantity  Int
   createdAt DateTime? @default(now()) @map("created_at")
   updatedAt DateTime? @map("updated_at")

@@ -22,7 +22,8 @@
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev --name",
     "prisma:seed": "npx prisma db seed",
-    "prisma:reset": "npx prisma migrate reset"
+    "prisma:reset": "npx prisma migrate reset",
+    "docker:prisma:migrate": "docker-compose run ecommerce-api npx prisma migrate dev --name"
   },
   "dependencies": {
     "@apollo/server": "^4.9.1",
