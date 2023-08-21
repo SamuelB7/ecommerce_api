@@ -156,12 +156,17 @@ input UpdateProductInput {
 }
 
 input CreateOrderInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  userId: String!
+  orderProducts: [OrderProductInput!]!
+}
+
+input OrderProductInput {
+  productId: String!
+  quantity: Float!
 }
 
 input UpdateOrderInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  userId: String
+  orderProducts: [OrderProductInput!]
   id: Int!
 }

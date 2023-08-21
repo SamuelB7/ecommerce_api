@@ -20,7 +20,7 @@ services:
     networks:
       - base_network
     ports:
-      - 3000:3000
+      - 3333:3333
     command: sh -c "yarn start:dev"
     depends_on:
       - ecommerce-db

@@ -65,7 +65,10 @@ export class ProductsService {
       const products = await this.prisma.product.findMany({
         skip: offset,
         take: limit,
-        where: where
+        where: where,
+        include: {
+          photos: true
+        }
       })
 
       return products
