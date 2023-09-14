@@ -34,5 +34,27 @@ export async function seedProducts(prisma: PrismaClient) {
                 },
             ]
         })
+
+        const productRating = await prisma.productRating.createMany({
+            data: [
+                {
+                    rating: faker.number.int({ min: 1, max: 5 }),
+                    description: faker.lorem.paragraph(),
+                    productId: product.id
+                },
+                {
+                    rating: faker.number.int({ min: 1, max: 5 }),
+                    productId: product.id
+                },
+                {
+                    rating: faker.number.int({ min: 1, max: 5 }),
+                    productId: product.id
+                },
+                {
+                    rating: faker.number.int({ min: 1, max: 5 }),
+                    productId: product.id
+                },
+            ]
+        })
     }
 }

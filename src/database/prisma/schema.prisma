@@ -39,6 +39,7 @@ model Product {
   category      String          @db.VarChar(255)
   photos        ProductPhotos[]
   orderProducts OrderProducts[]
+  rating        ProductRating[]
   createdAt     DateTime?       @default(now()) @map("created_at")
   updatedAt     DateTime?       @map("updated_at")
   deletedAt     DateTime?       @map("deleted_at")
@@ -56,6 +57,16 @@ model ProductPhotos {
   deletedAt DateTime? @map("deleted_at")
 
   @@map("product_photos")
+}
+
+model ProductRating {
+  id          String  @id @default(uuid())
+  productId   String  @map("product_id")
+  description String?
+  rating      Int
+  product     Product @relation(fields: [productId], references: [id])
+
+  @@map("product_rating")
 }
 
 model Order {

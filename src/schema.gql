@@ -57,6 +57,7 @@ type Product {
   isAvailable: Boolean!
   category: String!
   photos: [ProductPhoto!]!
+  rating: Float!
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime

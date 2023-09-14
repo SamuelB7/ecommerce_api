@@ -24,6 +24,9 @@ export class Product {
   @Field(() => [ProductPhoto])
   photos?: ProductPhoto[]
 
+  @Field(() => Number)
+  rating?: number
+
   @Field(() => Date)
   createdAt: Date
 
