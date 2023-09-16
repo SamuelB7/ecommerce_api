@@ -28,6 +28,9 @@ export class Product {
   @Field(() => [ProductRating])
   rating?: ProductRating[]
 
+  @Field(() => Number, { nullable: true })
+  averageRating?: number
+
   @Field(() => Date)
   createdAt: Date
 

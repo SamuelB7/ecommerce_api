@@ -68,6 +68,7 @@ type Product {
   category: String!
   photos: [ProductPhoto!]!
   rating: [ProductRating!]!
+  averageRating: Float
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
