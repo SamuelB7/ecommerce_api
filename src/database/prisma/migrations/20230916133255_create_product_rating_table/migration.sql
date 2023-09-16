@@ -4,6 +4,9 @@ CREATE TABLE "product_rating" (
     "product_id" TEXT NOT NULL,
     "description" TEXT,
     "rating" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "product_rating_pkey" PRIMARY KEY ("id")
 );

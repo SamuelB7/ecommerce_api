@@ -1,5 +1,6 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql';
 import { ProductPhoto } from './product-photo.entity';
+import { ProductRating } from './product-rating.entity';
 
 @ObjectType()
 export class Product {
@@ -24,8 +25,8 @@ export class Product {
   @Field(() => [ProductPhoto])
   photos?: ProductPhoto[]
 
-  @Field(() => Number)
-  rating?: number
+  @Field(() => [ProductRating])
+  rating?: ProductRating[]
 
   @Field(() => Date)
   createdAt: Date

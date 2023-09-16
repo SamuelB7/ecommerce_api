@@ -67,7 +67,8 @@ export class ProductsService {
         take: limit,
         where: where,
         include: {
-          photos: true
+          photos: true,
+          rating: true
         }
       })
 

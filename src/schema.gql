@@ -49,6 +49,16 @@ type ProductPhoto {
   deletedAt: DateTime
 }
 
+type ProductRating {
+  id: String!
+  productId: String!
+  rating: Float!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
 type Product {
   id: String!
   name: String!
@@ -57,7 +67,7 @@ type Product {
   isAvailable: Boolean!
   category: String!
   photos: [ProductPhoto!]!
-  rating: Float!
+  rating: [ProductRating!]!
   createdAt: DateTime!
   updatedAt: DateTime
   deletedAt: DateTime
