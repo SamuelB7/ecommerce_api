@@ -66,8 +66,8 @@ type Product {
   price: Float!
   isAvailable: Boolean!
   category: String!
-  photos: [ProductPhoto!]!
-  rating: [ProductRating!]!
+  photos: [ProductPhoto!]
+  rating: [ProductRating!]
   averageRating: Float
   createdAt: DateTime!
   updatedAt: DateTime

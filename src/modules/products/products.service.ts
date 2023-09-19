@@ -93,6 +93,10 @@ export class ProductsService {
       const product = await this.prisma.product.findUnique({
         where: {
           id: id
+        },
+        include: {
+          photos: true,
+          rating: true
         }
       })
 

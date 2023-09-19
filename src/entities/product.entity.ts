@@ -22,10 +22,10 @@ export class Product {
   @Field(() => String)
   category: string
 
-  @Field(() => [ProductPhoto])
+  @Field(() => [ProductPhoto], { nullable: true })
   photos?: ProductPhoto[]
 
-  @Field(() => [ProductRating])
+  @Field(() => [ProductRating], { nullable: true })
   rating?: ProductRating[]
 
   @Field(() => Number, { nullable: true })
