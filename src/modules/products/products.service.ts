@@ -100,7 +100,13 @@ export class ProductsService {
         }
       })
 
-      return product
+      const ratingsCount = product.rating.length
+      const ratingsSum = product.rating.reduce((acc, rating) => acc + rating.rating, 0)
+
+      return {
+        ...product,
+        averageRating: ratingsCount > 0 ? ratingsSum / ratingsCount : 0
+      }
     } catch (error) {
       console.error(error)
       throw new Error(error)
