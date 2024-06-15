@@ -13,6 +13,10 @@ services:
       - db-data:/var/lib/postgresql/data
     env_file:
       - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
 
   ecommerce-api:
     container_name: ecommerce-api
@@ -28,6 +32,8 @@ services:
     volumes:
       - .:/app
     env_file: .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@ecommerce-db:5432/${POSTGRES_DB}
 
 networks:
   base_network:
