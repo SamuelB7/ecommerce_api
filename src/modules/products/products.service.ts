@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductInput } from './dto/create-product.input';
-import { UpdateProductInput } from './dto/update-product.input';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma/prisma.service';
 import { Product } from 'src/entities/product.entity';
-import { SearchProductParametersInput } from './dto/search-product-parameters.input';
 import { PaginationArgs } from 'src/utils/graphql/pagination-args';
-import { Prisma } from '@prisma/client';
+import { CreateProductInput } from './dto/create-product.input';
+import { SearchProductParametersInput } from './dto/search-product-parameters.input';
+import { UpdateProductInput } from './dto/update-product.input';
 
 @Injectable()
 export class ProductsService {
@@ -81,7 +81,9 @@ export class ProductsService {
         }
       })
 
-      return productsWithAverageRating
+
+
+      return { products: productsWithAverageRating, totalCount: totalCount }
     } catch (error) {
       console.error(error)
       throw new Error(error)

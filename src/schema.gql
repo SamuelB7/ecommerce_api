@@ -74,6 +74,11 @@ type Product {
   deletedAt: DateTime
 }
 
+type FindAllProduct {
+  products: [Product!]!
+  totalCount: String!
+}
+
 type Order {
   id: String!
   userId: String!
@@ -86,7 +91,7 @@ type Query {
   me: AuthUser!
   findAllUsers(search: SearchUserParametersInput, limit: Int = 20, offset: Int = 0): [User!]!
   findOneUser(id: String!): User!
-  findAllProducts(search: SearchProductParametersInput, limit: Int = 20, offset: Int = 0): [Product!]!
+  findAllProducts(search: SearchProductParametersInput, limit: Int = 20, offset: Int = 0): FindAllProduct!
   findOneProduct(id: String!): Product!
   orders: [Order!]!
   order(id: Int!): Order!

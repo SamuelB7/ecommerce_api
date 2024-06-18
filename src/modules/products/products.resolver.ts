@@ -1,15 +1,16 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { ProductsService } from './products.service';
-import { Product } from '../../entities/product.entity';
-import { CreateProductInput } from './dto/create-product.input';
-import { UpdateProductInput } from './dto/update-product.input';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/guards/jwt-auth/jwt-auth.guard';
-import { RolesGuard } from 'src/guards/roles/roles.guard';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Role } from 'src/decorators/roles-decorator';
 import { UserRoleEnum } from 'src/enums/user-role.enum';
-import { SearchProductParametersInput } from './dto/search-product-parameters.input';
+import { JwtAuthGuard } from 'src/guards/jwt-auth/jwt-auth.guard';
+import { RolesGuard } from 'src/guards/roles/roles.guard';
 import { PaginationArgs } from 'src/utils/graphql/pagination-args';
+import { Product } from '../../entities/product.entity';
+import { CreateProductInput } from './dto/create-product.input';
+import { FindAllProduct } from './dto/find-all-product';
+import { SearchProductParametersInput } from './dto/search-product-parameters.input';
+import { UpdateProductInput } from './dto/update-product.input';
+import { ProductsService } from './products.service';
 
 @Resolver(() => Product)
 export class ProductsResolver {
@@ -22,7 +23,7 @@ export class ProductsResolver {
     return this.productsService.create(createProductInput);
   }
 
-  @Query(() => [Product], { name: 'findAllProducts' })
+  @Query(() => FindAllProduct, { name: 'findAllProducts' })
   findAll(@Args('search', { nullable: true }) search?: SearchProductParametersInput, @Args({ nullable: true }) pagination?: PaginationArgs) {
     return this.productsService.findAll(search, pagination);
   }
